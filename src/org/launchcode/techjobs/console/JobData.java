@@ -19,6 +19,7 @@ public class JobData {
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
 
+    private static ArrayList<HashMap<String, String>> allJobsCopy;
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
@@ -51,7 +52,8 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
+        allJobsCopy = (ArrayList<HashMap<String, String>>) allJobs.clone();
+        return allJobsCopy;
     }
 
     /**
@@ -76,9 +78,29 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
+        }
+
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        // load data, if not alraedy loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row: allJobs) {
+
+            for (String Column : row.keySet()) {
+                String aValue = row.get(Column);
+
+                if (aValue.toLowerCase().contains(value.toLowerCase())) {
+                    jobs.add(row);
+                }
+          }
         }
 
         return jobs;
