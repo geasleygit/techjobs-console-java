@@ -87,7 +87,7 @@ public class JobData {
     }
 
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-        // load data, if not alraedy loaded
+        // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
